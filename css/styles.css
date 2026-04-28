@@ -919,6 +919,8 @@ a:hover {
     display: flex;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-md);
+    align-items: center;
+    flex-wrap: nowrap;
 }
 
 .social-link {
@@ -946,6 +948,14 @@ a:hover {
     box-shadow: 0 8px 16px rgba(124, 58, 237, 0.4);
     border-color: transparent;
     color: var(--color-white);
+}
+
+/* Improved keyboard accessibility: visible focus state for social links */
+.social-link:focus-visible {
+    outline: 3px solid rgba(155, 126, 222, 0.22);
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.14);
+    transform: translateY(-3px);
+    border-color: transparent;
 }
 
 /* Newsletter Section */
