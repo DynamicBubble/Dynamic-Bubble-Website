@@ -73,6 +73,13 @@
             background: linear-gradient(90deg, rgba(15, 23, 42, 0.15), rgba(15, 23, 42, 0.03));
         }
 
+        .progress-step .progress-hint {
+            margin-left: 0.5rem;
+            font-size: 0.78rem;
+            color: rgba(90, 100, 115, 0.8);
+            font-weight: 600;
+            opacity: 0.95;
+        }
         .payment-shell {
             display: flex;
             flex-direction: column;
@@ -504,6 +511,15 @@
             font-size: 0.95rem;
         }
 
+        /* Ensure plan-note and trust-text are readable on the dark aside */
+        .payment-aside .plan-note,
+        .payment-aside .trust-text,
+        #after-pay-aside .plan-note,
+        #after-pay-aside .trust-text {
+            color: rgba(248, 250, 252, 0.95) !important;
+            font-weight: 600;
+        }
+
         .success-icon {
             font-size: 1.8rem;
             margin-bottom: 0.6rem;
@@ -676,6 +692,7 @@
                 <div class="progress-step active" data-step="pay" role="button" tabindex="0" aria-label="Return to Step 1 — Pay">
                     <span>Step 1</span>
                     <span>Pay</span>
+                    <span class="progress-hint" aria-hidden="true">Click to return</span>
                 </div>
                 <div class="progress-line" aria-hidden="true"></div>
                 <div class="progress-step" data-step="submit" hidden aria-hidden="true">
