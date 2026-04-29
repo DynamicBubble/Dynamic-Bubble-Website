@@ -1330,6 +1330,56 @@
                 const firstField = paymentFormCard.querySelector('input, select, textarea, button');
                 if (firstField) firstField.focus();
             });
+            // Make the 'Step 1' progress step clickable to return from Step 2
+            if (progressPay) {
+                progressPay.style.cursor = 'pointer';
+                const goToStep1 = () => {
+                    if (paymentShell && paymentShell.classList.contains('show-step-2')) {
+                        // remove step-2 focused layout
+                        paymentShell.classList.remove('show-step-2');
+
+                        // hide the payment form and update aria
+                        if (paymentFormCard) {
+                            paymentFormCard.hidden = true;
+                            paymentFormCard.setAttribute('aria-hidden', 'true');
+                            const formTagRestore = paymentFormCard.querySelector('.form-tag');
+                            if (formTagRestore) {
+                                formTagRestore.hidden = false;
+                                formTagRestore.setAttribute('aria-hidden', 'false');
+                            }
+                        }
+
+                        // hide the progress submit step again
+                        if (progressSubmit) {
+                            progressSubmit.classList.remove('active');
+                            progressSubmit.hidden = true;
+                            progressSubmit.setAttribute('aria-hidden', 'true');
+                            progressSubmit.classList.remove('completed');
+                        }
+
+                        // restore pay progress state and scroll back to the pay card
+                        if (progressPay) {
+                            progressPay.classList.remove('completed');
+                            progressPay.classList.add('active');
+                        }
+
+                        const payCard = document.querySelector('.payment-card');
+                        if (payCard) {
+                            payCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            const focusTarget = payCard.querySelector('button, a, input');
+                            if (focusTarget) focusTarget.focus();
+                        }
+                    }
+                };
+
+                progressPay.addEventListener('click', goToStep1);
+                progressPay.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        goToStep1();
+                    }
+                });
+            }
 
             copyButton.addEventListener("click", async () => {
                 try {
