@@ -122,6 +122,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Close navbar when clicking outside of it
+    document.addEventListener('click', (e) => {
+        if (isExpanded && navContainer && hamburger) {
+            // Check if click is outside navbar and hamburger
+            const isClickInsideNav = navContainer.contains(e.target);
+            const isClickOnHamburger = hamburger.contains(e.target);
+            
+            if (!isClickInsideNav && !isClickOnHamburger) {
+                toggleMenu(); // Close the menu
+            }
+        }
+    });
+
     // Handle window resize
     let resizeTimer;
     window.addEventListener('resize', () => {
