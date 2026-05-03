@@ -1,40 +1,10 @@
 // ===================================
-// Mobile Navigation Toggle
-// ===================================
-
-const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-const navbarMenu = document.querySelector('.navbar-menu');
-
-if (mobileMenuToggle) {
-    mobileMenuToggle.addEventListener('click', () => {
-        navbarMenu.classList.toggle('active');
-
-        // Update aria-expanded for accessibility
-        const isExpanded = navbarMenu.classList.contains('active');
-        mobileMenuToggle.setAttribute('aria-expanded', isExpanded);
-    });
-}
-
-// Close mobile menu when clicking on a link
-const navLinks = document.querySelectorAll('.navbar-menu a');
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-            navbarMenu.classList.remove('active');
-            if (mobileMenuToggle) {
-                mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            }
-        }
-    });
-});
-
-// ===================================
 // Active Navigation State
 // ===================================
 
 function setActiveNavLink() {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-    const navLinks = document.querySelectorAll('.navbar-menu a');
+    const navLinks = document.querySelectorAll('.nav-card-link');
 
     navLinks.forEach(link => {
         const href = link.getAttribute('href');
@@ -45,9 +15,6 @@ function setActiveNavLink() {
         }
     });
 }
-
-// Set active link on page load
-document.addEventListener('DOMContentLoaded', setActiveNavLink);
 
 // ===================================
 // Scroll Reveal Animations
@@ -68,8 +35,11 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all elements with scroll-reveal class
+// Observe all elements with scroll-reveal class and set active link on load
 document.addEventListener('DOMContentLoaded', () => {
+    setActiveNavLink();
+    
+    // Initialize scroll-reveal observer
     const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
     scrollRevealElements.forEach(el => observer.observe(el));
 });
@@ -109,16 +79,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ===================================
 
 let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
+const cardNavContainer = document.querySelector('.card-nav-container');
 
-if (navbar) {
+if (cardNavContainer) {
     window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
+        const currentScroll = window.scrollY || window.pageYOffset;
 
         if (currentScroll > 50) {
-            navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+            cardNavContainer.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
         } else {
-            navbar.style.boxShadow = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
+            cardNavContainer.style.boxShadow = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
         }
 
         lastScroll = currentScroll;
@@ -196,19 +166,7 @@ if (newsletterForm) {
 
 function showNewsletterSuccess() {
     const successDiv = document.createElement('div');
-    successDiv.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: linear-gradient(135deg, #10B981, #059669);
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 0.75rem;
-        box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
-        z-index: 10000;
-        animation: slideInRight 0.3s ease-out;
-        font-family: var(--font-family);
-    `;
+    successDiv.className = 'newsletter-success-toast';
     successDiv.innerHTML = `
         <div style="display: flex; align-items: center; gap: 0.75rem;">
             <span style="font-size: 1.5rem;">✅</span>
@@ -229,22 +187,6 @@ function showNewsletterSuccess() {
         setTimeout(() => successDiv.remove(), 300);
     }, 4000);
 }
-
-// Add slideInRight animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideInRight {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-`;
-document.head.appendChild(style);
 
 // ===================================
 // Dynamic Copyright Year

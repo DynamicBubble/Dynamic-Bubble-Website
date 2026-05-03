@@ -1539,3 +1539,13 @@ html, body { overflow-x: clip; }
     overflow-wrap: anywhere;   /* overflow solution */
     word-break: break-word;    /* fallback */
 }
+
+
+/* Added Utility Classes */
+.gap-20 { gap: 20px; }
+.btn-light { background-color: white; color: var(--color-primary); }
+
+
+/* Newsletter Success Toast */
+.newsletter-success-toast { position: fixed; top: 20px; right: 20px; background: linear-gradient(135deg, #10B981, #059669); color: white; padding: 1rem 1.5rem; border-radius: 0.75rem; box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); z-index: 10000; animation: slideInRight 0.3s ease-out; font-family: var(--font-family); }
+@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
