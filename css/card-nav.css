@@ -230,3 +230,7 @@
     font-size: 15px;
   }
 }
+
+/* Custom Nav Card Colors */
+.nav-card-explore { background-color: #0D0716; color: #fff; }
+.nav-card-connect { background-color: #271E37; color: #fff; }

@@ -288,3 +288,7 @@
 }
 
 
+
+
+/* Learn More Link */
+.card-learn-more { color: var(--color-primary-light); font-size: 12px; display: block; margin-top: 8px; }
